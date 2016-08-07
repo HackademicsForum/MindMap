@@ -24,21 +24,6 @@ L'injection au niveau du système d'exploitation permet l'exécution à distance
 
 ##### ShellShock
 
-###### Contexte
-
-Permet l'injection de commandes arbitraires dans le Bourne Shell (Bash) en utilisant un&nbsp;:
-
-  - Un échappement dans l'entête HTTP &laquo;&nbsp;*User-Agent*&nbsp;&raquo; lors de l'utilisation d'une interface CGI _(Common gateway interface)_&nbsp;;
-  - Lorem _ipsum_ __dolor__ ___sit___ amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua&nbsp;;
-  - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-__Plus d'informations&nbsp;:__ [CVE-2014-6271][1], [CVE-2014-7169][2], [CVE-2014-7186][3], [CVE-2014-7187][4]
-
-###### Contres-mesures / contres-exploitations
-
-  - Mise à jour de Bash en version 4.3&nbsp;;
-  - [Configuration de Fail2Ban][5] pour détécter une tentative d'attaque.
-
 #### Structured Query Language (SQL)
 
 #### Lightweight Directory Access Protocol (LDAP)
