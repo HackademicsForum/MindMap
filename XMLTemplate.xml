@@ -1,9 +1,0 @@
-<vulnerability-types>
-    <vulnerability-type name="Web">
-        <attack-type name="XSS">
-            <attack name="XSS réfléchi" />
-            <attack name="XSS simple" />
-        </attack-type>
-        <attack name="SQLi" />
-    </vulnerability-type>
-</vulnerability-types>
