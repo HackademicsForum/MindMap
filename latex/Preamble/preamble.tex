@@ -1,0 +1,87 @@
+%%%
+ % File:     preamble.tex
+ % Author:   Hackademics Forum <hackademicsforum6@gmail.com>
+ % Project:  MindMap des vulnérabilités
+ % Released: 03/08/2016
+%%%
+
+%!TeX root = main.tex
+%!TeX encoding = UTF-8
+%!TeX program = pdflatex
+%!TeX spellcheck = fr_FR
+
+%% Paramètres régionnaux et linguistiques %%
+\usepackage[T1]{fontenc}      % Encodage supportant les caractères accentués
+\usepackage[utf8]{inputenc}   % Encodage des caractères en UTF-8
+\usepackage{eurosym}          % Possibilite d'utiliser le symbole euro
+\usepackage{datetime}         % Formatage de la date
+
+%% Police d'écriture %%
+%\usepackage{uarial}
+%\renewcommand{\familydefault}{\sfdefault}
+
+%% Mise en page %%
+\newcommand{\HRule}{\rule{\linewidth}{1mm}}  % Interlignes
+\linespread{1}       % Interlignes
+\usepackage{lscape}    % Permet la bascule en mode paysage/portrait, portrait/paysage
+\usepackage{setspace}  % Permet de définir la taille d'interlignage
+                       % à l'aide des environnements onehalfspace et doublespace
+\usepackage{xspace}    % Espaces intelligents dans les macros
+\usepackage[top=2cm,
+						bottom=2cm,
+						left=2cm,
+						right=2cm,
+						bindingoffset=7mm,
+						includehead,
+						includefoot]{geometry}  % Modification du gabarit du document
+
+%% Profondeur dans la table des matières %%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+%% Abstract %%
+\usepackage{abstract}
+
+%% Gestion des références internes et externes sur un document PDF %%
+\usepackage{hyperref}
+
+%% Méta-données %%
+\usepackage{ifpdf}
+
+%% Gestion des URI %%
+\usepackage{url}
+
+%% Gestion des TODO %%
+\usepackage[colorinlistoftodos]{todonotes}
+
+%% Annexes %%
+\usepackage[title,toc,page,header]{appendix}
+\renewcommand{\appendixtocname}{Annexes}
+\renewcommand{\appendixpagename}{Annexes}
+
+%% Chapitres %%
+\usepackage{titlesec, blindtext, color}
+\titleformat{\chapter}[hang]{\relax}{}{0pt}{\huge}[\titlerule]
+
+%% Éléments graphiques %%
+\usepackage{graphicx}
+\usepackage{subfig}  %% Gallerie d'images
+
+%% Objets flottants %%
+\usepackage{float}
+%\usepackage{placeins}
+%\usepackage{floatrow}
+
+%% Tableaux %%
+\usepackage{array}
+\usepackage{tabularx}
+
+%% Bibliographie %%
+%\usepackage[numbers,sort&compress]{natbib}
+
+%% Formules mathématiques %%
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+
+\endinput

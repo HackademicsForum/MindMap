@@ -1,64 +1,116 @@
+%%%
+ % File:     main.tex
+ % Author:   Hackademics Forum <hackademicsforum6@gmail.com>
+ % Project:  MindMap des vulnérabilités
+ % Released: 03/08/2016
+%%%
+
+%&"main"
+%!TeX encoding = UTF-8
+%!TeX program = pdflatex
+%!TeX spellcheck = fr_FR
+
+%%%
+ % CONFIGURATION DOCUMENT
+%%%
 \documentclass[a4paper]{report}
+\usepackage[utf8]{inputenc}              % Encodage des caractères en UTF-8
+\usepackage[main=french,english]{babel}  % Langue du document en Francais
+% Pour utiliser l'anglais, utiliser : \begin{otherlanguage}{english}...\end{otherlanguage}
 
-%====================== PACKAGES ======================
+%%%
+ % PRÉAMBULE
+%%%
+\input{Preamble/preamble}
 
-\usepackage[french]{babel}
-\usepackage[utf8x]{inputenc}
-%pour gérer les positionnement d'images
-\usepackage{float}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[colorinlistoftodos]{todonotes}
-\usepackage{url}
-%pour les informations sur un document compilé en PDF et les liens externes / internes
-\usepackage{hyperref}
-%pour la mise en page des tableaux
-\usepackage{array}
-\usepackage{tabularx}
-%pour utiliser \floatbarrier
-%\usepackage{placeins}
-%\usepackage{floatrow}
-%espacement entre les lignes
-\usepackage{setspace}
-%modifier la mise en page de l'abstract
-\usepackage{abstract}
-%police et mise en page (marges) du document
-\usepackage[T1]{fontenc}
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
-%Pour les galerie d'images
-\usepackage{subfig}
+%%%
+ % INFORMATIONS ET RÈGLES
+%%%
 
-%====================== INFORMATION ET REGLES ======================
+%% Metadonnées pour le PDF %%
+\pdfinfo {%
+		/Author (Premier Auteur,
+						Deuxième Auteur,
+						Troisième Auteur,
+						Quatrième Auteur)                 % Auteurs du document
+		/Title (Nom du Projet - Sujet du Projet)  % Titre
+		/Subject (Sujet du Projet)                % Sujet
+		/Keywords (Tag1;Tag2;Tag3)                % Mots-clés
+		/CreationDate (D:\pdfdate)                % Date de création
+		/Creator (TexMaker)                       % Logiciel de création
+}
 
-%rajouter les numérotation pour les \paragraphe et \subparagraphe
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
+\makeatletter
+\@ifpackageloaded{hyperref}{%
+		\hypersetup{
+			pdfauthor={Premier Auteur,
+								Deuxième Auteur,
+								Troisième Auteur,
+								Quatrième Auteur},                 % Auteurs du document
+			pdftitle={Nom du Projet - Sujet du Projet},  % Titre
+			pdfsubject={Sujet du Projet},                % Sujet
+			pdfkeywords={Tag1, Tag2, Tag3},              % Mots-clés
+			pdfstartview={FitH},                         % Ajuste la page à la hauteur de l'écran
+			pdfcreator={TexMaker}                        % Logiciel de création
+		}
+}{}
+\makeatother
 
-\hypersetup{							% Information sur le document
-pdfauthor = {Premier Auteur,
-			Deuxième Auteur,
-			Troisième Auteur,
-    		Quatrième Auteur},			% Auteurs
-pdftitle = {Nom du Projet -
-			Sujet du Projet},			% Titre du document
-pdfsubject = {Mémoire de Projet},		% Sujet
-pdfkeywords = {Tag1, Tag2, Tag3, ...},	% Mots-clefs
-pdfstartview={FitH}}					% ajuste la page à la largueur de l'écran
-%pdfcreator = {MikTeX},% Logiciel qui a crée le document
-%pdfproducer = {}} % Société avec produit le logiciel
+%%%
+ % PAGES DE COUVERTURE
+%%%
+\input{Coverpage/coverpage}
 
-%======================== DEBUT DU DOCUMENT ========================
-
+%%%
+ % DOCUMENT
+%%%
 \begin{document}
 
-%régler l'espacement entre les lignes
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+%%%
+ % Table de matière
+%%%
+\tableofcontents
+\markboth{}{}
 
-\input{./web.tex}
+%% Page vide si paire avec désactivation de la pagination %%
+\pagestyle{empty}
+\cleardoublepage
 
-\input{./network.tex}
+%% Activation de la pagination %%
+\pagestyle{plain}
 
+%%%
+ % Introduction
+%%%
+\input{Introduction/introduction}
 
-\newpage
+%%%
+ % Chapitres
+%%%
+\input{Applicatives/application.tex}
+\input{Physiques/physical.tex}
+\input{Réseau/network.tex}
+\input{Web/web.tex}
+
+%%%
+ % Conclusion
+%%%
+\input{Conclusion/conclusion}
+
+%%%
+ % Bibliographie
+%%%
+%\bibliographystyle{osajnl-url-fr}
+%\bibliography{biblio}
+%\addcontentsline{toc}{chapter}{Bibliographie}
+
+%%%
+ % Annexes
+%%%
+%\begin{appendices}
+%\input{AppendixA/appendixa}
+%\input{AppendixB/appendixb}
+%\input{AppendixC/appendixc}
+%\end{appendices}
 
 \end{document}
