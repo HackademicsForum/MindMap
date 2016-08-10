@@ -6,6 +6,9 @@
 # Texpad
 .texpadtmp
 
+# TeXnicCenter
+*.tcp
+
 # Kile
 *.backup
 
