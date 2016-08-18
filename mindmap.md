@@ -75,6 +75,12 @@ depuis la Command Palette (ctrl-shift-p).
 
 #### SQLi à l'aveugle (Blind)
 
+#### SQLi Error
+
+#### SQLi Insert
+
+#### SQLi Time Based
+
 ### Cross-Site Scripting (XSS)
 
 #### XSS local (DOM Based)
@@ -84,6 +90,16 @@ depuis la Command Palette (ctrl-shift-p).
 #### XSS réfléchi (Reflected)
 
 ### Cross-Site Request Forgery (CSRF / XSRF)
+
+### XPath Injection
+
+### LDAP injection
+
+### File Inclusion
+
+#### Local File Inclusion
+
+#### Remote File Inclusion
 
 ## Réseau
 
