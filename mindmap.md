@@ -30,11 +30,19 @@ depuis la Command Palette (ctrl-shift-p).
 		- Structured Query Language Injection (SQLi)
 			- SQLi Simple
 			- SQLi à l'aveugle (Blind)
+			- SQLi Error
+			- SQLi Insert
+			- SQLi Time Based
 		- Cross-Site Scripting (XSS)
 			- XSS local (DOM Based)
 			- XSS stocké (Stored)
 			- XSS réfléchi (Reflected)
 		- Cross-Site Request Forgery (CSRF / XSRF)
+		- XPath Injection
+		- LDAP injection
+		- File Inclusion
+			- Local File Inclusion
+			- Remote File Inclusion
 	- Réseau
 		- Usurpation (Spoofing)
 			- IP Spoofing
