@@ -23,6 +23,7 @@ Un Buffer Overflow ou dépassement de tampon se produit lorsque un programme ou 
 
 Chez les processeurs X86, le STACK commence a l’extrémité supérieure de la mémoire (ex:0xffffffff) et pousse vers le bas (vers 0x00000000). Le mot STACK viens de l'anglais et veut dire PILE. Il se nomme ainsi car il se comporte en LIFO (Last In First Out): si quelque chose est ajouté (PUSH,écriture), la PILE est augmentée, au contraire si quelque chose est lu (POP), la PILE est abaissée: l'élément est lu et supprimé. Il existe une troisième méthode nommée TOP ou PEEK, ou l'élément est simplement lu mais pas supprimé. Le pointeur de PILE (ESP) est toujours à la dernière adresse de la PILE.
 
+<<<<<<< HEAD
 \begin{center}
 \vspace{0.5cm}
 \includegraphics[scale=0.3]{Application/assets/stack.png}
@@ -73,6 +74,9 @@ Utilisez des langages de programmation de plus haut niveau qui sont fortement ty
 Valider l'entrée pour empêcher  des données inattendues d'être traitées, comme étant trop longue, ou de type de données incorrect, contenant des caractères "junk", etc.
 utiliser le principe du moindre privilège
 utiliser des compilateurs qui protègent contre les Buffer Overflow 
+=======
+\includegraphics[scale=0.3]{Application/assets/stack.png}
+>>>>>>> 38228707d943772526b3921d82e22605f2c5748b
 
 \subsection{Heap Overflow}\label{vulnerabilites:applicatives:buffer-overflow:heap}
 
