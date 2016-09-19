@@ -26,60 +26,23 @@ depuis la Command Palette (ctrl-shift-p).
 <!-- TOC depthFrom:1 depthTo:9 withLinks:0 updateOnSave:1 orderedList:0 -->
 
 - MindMap des vulnérabilités
-	- Web
-		- Structured Query Language Injection (SQLi)
-			- SQLi Simple
-			- SQLi à l'aveugle (Blind)
-			- SQLi Error
-			- SQLi Insert
-			- SQLi Time Based
-		- Cross-Site Scripting (XSS)
-			- XSS local (DOM Based)
-			- XSS stocké (Stored)
-			- XSS réfléchi (Reflected)
-		- Cross-Site Request Forgery (CSRF / XSRF)
-		- XPath Injection
-		- LDAP injection
-		- File Inclusion
-			- Local File Inclusion
-			- Remote File Inclusion
-	- Réseau
-		- Usurpation (Spoofing)
-			- IP Spoofing
-			- ARP Spoofing
-			- MAC spoofing
-			- DNS Spoofing
-		- Rejeu (Replay / Playback)
-		- Déni de service (distribué) (DoS / DDoS)
-			- Advanced persistent DoS (APDoS)
-			- DoS réflechi (Reflected / Spoofed)
-	- Physiques
-		- Wi-Fi
-			- Wired Equivalent Privacy (WEP)
-			- Wi-Fi Protected Setup (WPS)
-			- Wi-Fi Protected Access (WPA)
-	- Applicatives
-		- Dépassement de tampon (Buffer Overflow)
-			- Stack Overflow
-			- Heap Overflow
+  - Web
+    - Cross-Site Scripting (XSS)
+      - XSS local (DOM Based)
+      - XSS stocké (Stored)
+      - XSS réfléchi (Reflected)
+    - Réseau
+      - Usurpation (Spoofing)
+      	- IP Spoofing
+    - Applicatives
+      - Dépassement de tampon (Buffer Overflow)
+	- Stack Overflow
 
 <!-- /TOC -->
 
 # MindMap des vulnérabilités
 
 ## Web
-
-### Structured Query Language Injection (SQLi)
-
-#### SQLi Simple
-
-#### SQLi à l'aveugle (Blind)
-
-#### SQLi Error
-
-#### SQLi Insert
-
-#### SQLi Time Based
 
 ### Cross-Site Scripting (XSS)
 
@@ -89,52 +52,16 @@ depuis la Command Palette (ctrl-shift-p).
 
 #### XSS réfléchi (Reflected)
 
-### Cross-Site Request Forgery (CSRF / XSRF)
-
-### XPath Injection
-
-### LDAP injection
-
-### File Inclusion
-
-#### Local File Inclusion
-
-#### Remote File Inclusion
-
 ## Réseau
 
 ### Usurpation (Spoofing)
 
 #### IP Spoofing
 
-#### ARP Spoofing
-
-#### MAC spoofing
-
-#### DNS Spoofing
-
-### Rejeu (Replay / Playback)
-
-### Déni de service (distribué) (DoS / DDoS)
-
-#### Advanced persistent DoS (APDoS)
-
-#### DoS réflechi (Reflected / Spoofed)
-
 ## Physiques
-
-### Wi-Fi
-
-#### Wired Equivalent Privacy (WEP)
-
-#### Wi-Fi Protected Setup (WPS)
-
-#### Wi-Fi Protected Access (WPA)
 
 ## Applicatives
 
 ### Dépassement de tampon (Buffer Overflow)
 
 #### Stack Overflow
-
-#### Heap Overflow
