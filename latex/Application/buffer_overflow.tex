@@ -16,14 +16,21 @@
 \newpage
 \section{Dépassement de tampon (Buffer Overflow)}\label{vulnerabilites:applicatives:buffer-overflow}
 
-Un Buffer Overflow ou dépassement de tampon se produit lorsque un programme ou un processus tente de stocker plus de données dans une mémoire tampon (stockage temporaire) que prévue par celle-ci. Ces mémoires tampon sont prévues pour accueillir une quantité limitée de données. Les informations supplémentaires qui doivent bien être stockées quelque part se retrouvent dans des tampons adjacents. Les données déjà stockées dans ces tampons sont à ce moment écrasées et endommagée. Bien que cela puisse également se produire accidentellement en raison d'une erreur de programmation, les dépassements de tampon sont de plus en plus utilisés pour volontairement corrompre les données. Dans des attaques ciblées par débordement de tampon,   ces informations complémentaires peuvent contenir du code malveillant qui déclenchera des actions spécifiques sur le système attaqué. Par exemple le code peut contenir des instructions qui peuvent endommager des fichiers sur le pc, simplement modifier des données ou mener au vol de certains renseignements intéressants.
+Un Buffer Overflow ou dépassement de tampon se produit lorsque un programme ou un processus tente de stocker plus de données dans une mémoire tampon (stockage temporaire) que prévue par celle-ci. Ces mémoires tampon sont prévues pour accueillir une quantité limitée de données (1). Les informations supplémentaires qui doivent bien être stockées quelque part se retrouvent dans des tampons adjacents. Les données déjà stockées dans ces tampons sont à ce moment écrasées et endommagée. Bien que cela puisse également se produire accidentellement en raison d'une erreur de programmation, les dépassements de tampon sont de plus en plus utilisés pour volontairement corrompre les données. Dans des attaques ciblées par débordement de tampon,   ces informations complémentaires peuvent contenir du code malveillant qui déclenchera des actions spécifiques sur le système attaqué. Par exemple le code peut contenir des instructions qui peuvent endommager des fichiers sur le pc, simplement modifier des données ou mener au vol de certains renseignements intéressants.
+
+\begin{center}
+\caption{1}
+\includegraphics[scale=2]{Application/assets/bo5.png}
+\end{center}
 
 
 \subsection{Stack Overflow}\label{vulnerabilites:applicatives:buffer-overflow:stack}
 
-Chez les processeurs X86, le STACK commence a l’extrémité supérieure de la mémoire (ex:0xffffffff) et pousse vers le bas (vers 0x00000000). Le mot STACK viens de l'anglais et veut dire PILE. Il se nomme ainsi car il se comporte en LIFO (Last In First Out): si quelque chose est ajouté (PUSH,écriture), la PILE est augmentée, au contraire si quelque chose est lu (POP), la PILE est abaissée: l'élément est lu et supprimé. Il existe une troisième méthode nommée TOP ou PEEK, ou l'élément est simplement lu mais pas supprimé. Le pointeur de PILE (ESP) est toujours à la dernière adresse de la PILE.
+Chez les processeurs X86, le STACK (2) commence a l’extrémité supérieure de la mémoire (ex:0xffffffff) et pousse vers le bas (vers 0x00000000). Le mot STACK viens de l'anglais et veut dire PILE. Il se nomme ainsi car il se comporte en LIFO (Last In First Out): si quelque chose est ajouté (PUSH,écriture), la PILE est augmentée, au contraire si quelque chose est lu (POP), la PILE est abaissée: l'élément est lu et supprimé. Il existe une troisième méthode nommée TOP ou PEEK, ou l'élément est simplement lu mais pas supprimé. Le pointeur de PILE (ESP) est toujours à la dernière adresse de la PILE.
+
 
 \begin{center}
+\caption{2}
 \includegraphics[scale=0.5]{Application/assets/stack.png}
 \end{center}
 
@@ -58,8 +65,14 @@ Le programme fonctionne comme prévu. Le mot de passe correspond et les privilè
 
 \begin{flushleft}
 Dans l'exemple ci-dessus, même après la saisie d'un mot de passe incorrect, le programme a fonctionné comme si le bon mot de passe avait été entré.
-Ce que l'utilisateur a fait, est qu'il a entré une chaine de caractères plus grande que prévue par la mémoire tampon. La valeur de "Mot de Passe" a donc été écrasée et a été passée a non nul. Ainsi en dépit d'un mauvais mot de passe, le privilèges ROOT ont été accordés.
+Ce que l'utilisateur a fait, est qu'il a entré une chaine de caractères plus grande que prévue par la mémoire tampon(3). La valeur de "Mot de Passe" a donc été écrasée et a été passée a non nul. Ainsi en dépit d'un mauvais mot de passe, le privilèges ROOT ont été accordés.
 \end{flushleft}
+
+\begin{center}
+\caption{Figure1}
+\includegraphics[scale=2]{Application/assets/bo40.png}
+\end{center}
+
 
 \begin{flushleft}
 \textbf{Comment déterminer si vous êtes vulnérable.}
