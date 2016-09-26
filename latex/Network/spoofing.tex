@@ -100,7 +100,7 @@ Les contre-mesures contre l'IP Spoofing sont de plusieurs ordres. Certaines sont
 Pour des attaques en aveugle, telles que celles utilisées par les DDOS en rebond, la balle est dans le camps des opérateurs : une adresse IP source peut en théorie etre bloquée au niveau d'un routeur BGP. Pour des raisons de performance, le opérateurs n'implémentent pas ce genre de controle.
 
 
-Au niveau du réseau d'une organisation, meme très grande, ne pas se contenter de règles de filtrage par interfaces réseau, il faut y ajouter des filtres sur les adresses IP ou les sous-réseaux (subnets), appliquer une ségrégation stricte au niveau IP. Par exemple, une interface connectée au réseau 192.168.1.0/24 ne doit pas laisser passer de paquets venant d'une autre plage d'adresse.
+Au niveau du réseau d'une organisation, meme très grande, ne pas se contenter de règles de filtrage par interfaces réseau, il faut y ajouter des filtres sur les adresses IP ou les sous-réseaux (subnets), appliquer une isolation stricte au niveau IP. Par exemple, une interface connectée au réseau 192.168.1.0/24 ne doit pas laisser passer de paquets venant d'une autre plage d'adresse.
 
 
 Pour ce qui est de la prise de controle, la solution est plus simple : ne pas utiliser de services obsolètes comme rsh ou rlogin.
