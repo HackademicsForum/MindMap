@@ -19,7 +19,6 @@
 Un Buffer Overflow ou dépassement de tampon se produit lorsque un programme ou un processus tente de stocker plus de données dans une mémoire tampon (stockage temporaire) que prévue par celle-ci. Ces mémoires tampon sont prévues pour accueillir une quantité limitée de données (1). Les informations supplémentaires qui doivent bien être stockées quelque part se retrouvent dans des tampons adjacents. Les données déjà stockées dans ces tampons sont à ce moment écrasées et endommagée. Bien que cela puisse également se produire accidentellement en raison d'une erreur de programmation, les dépassements de tampon sont de plus en plus utilisés pour volontairement corrompre les données. Dans des attaques ciblées par débordement de tampon,   ces informations complémentaires peuvent contenir du code malveillant qui déclenchera des actions spécifiques sur le système attaqué. Par exemple le code peut contenir des instructions qui peuvent endommager des fichiers sur le pc, simplement modifier des données ou mener au vol de certains renseignements intéressants.
 
 \begin{center}
-\caption{1}
 \includegraphics[scale=2]{Application/assets/bo5.png}
 \end{center}
 
@@ -30,7 +29,6 @@ Chez les processeurs X86, le STACK (2) commence a l’extrémité supérieure de
 
 
 \begin{center}
-\caption{2}
 \includegraphics[scale=0.5]{Application/assets/stack.png}
 \end{center}
 
@@ -69,7 +67,6 @@ Ce que l'utilisateur a fait, est qu'il a entré une chaine de caractères plus g
 \end{flushleft}
 
 \begin{center}
-\caption{Figure1}
 \includegraphics[scale=2]{Application/assets/bo40.png}
 \end{center}
 
