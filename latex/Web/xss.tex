@@ -51,11 +51,10 @@ Voici un exemple de l'exploitation de faille XSS de TYPE-0 pour afficher un simp
 En copiant ce code dans la barre de recherche et ensuite en cliquant sur search on utilise la faille XSS de TYPE-0 pour simplement afficher le message "XSS TYPE-0"
 \end{flushleft}
 
-\begin{figure}[hbtp]
+\begin{center}
 \caption{XSS TYPE-0}
-\centering
 \includegraphics[scale=0.3]{Web/assets/XSS0.png}
-\end{figure}
+\end{center}
 
 \begin{flushleft}
 Un autre exemple de l'exploitation de faille XSS de TYPE-0 pour cette fois changer l'apparence de la page en ajoutant deux cases à remplir avec un identifiant et un mot de passe dans le but de voler ces informations.
@@ -72,11 +71,10 @@ En copiant ce code dans la barre de recherche et ensuite en cliquant sur search 
 \end{flushleft}
 
 
-\begin{figure}[hbtp]
+\begin{center}
 \caption{XSS TYPE-0}
-\centering
 \includegraphics[scale=0.3]{Web/assets/xss1.png}
-\end{figure}
+\end{center}
 
 \begin{flushleft}
 Voilà j'ai simplement recrée un popup qui affiche en clair les informations (identifiant et mot de passe) qui ont été demandés. Un hacker en aurait profité pour noter les informations récoltées pour ensuite les utiliser a mauvais escient.
@@ -84,7 +82,47 @@ Voilà j'ai simplement recrée un popup qui affiche en clair les informations (i
 
 \subsection{XSS stocké (Stored)}\label{vulnerabilites:web:xss:stored}
 
-...
+Le XSS STOCKE (STORED) est la faille XSS la plus dommageable. Les attaques de TYPE-1 impliquent qu'un pirate injecte un script qui sera stocké de façon permanente (par exemple dans une base de données). Un exemple assez classique de XSS de TYPE-1 est l'injection d'un script malveillant par un pirate dans un champ de commentaires sur un blog ou un post dans un forum.
+
+\begin{flushleft}
+Voici un exemple de l'exploitation de faille XSS de TYPE-1. Pour rester dans la légalité j'utilise WEBGOAT pour illustrer cette injection.
+\end{flushleft}
+
+\bigskip
+
+\begin{itemize}
+\item Hackademics
+\item <script>alert(«HACKADEMICS»);</script>
+\end{itemize}
+
+\bigskip
+
+\begin{center}
+\caption{XSS TYPE-1}
+\includegraphics[scale=0.3]{Web/assets/xsst1-0.png}
+\end{center}
+
+\begin{flushleft}
+En copiant ce texte dans le champ TITRE, le script dans le champ MESSAGE et  en cliquant sur SUBMIT on utilise la faille XSS de TYPE-1 pour afficher et stocker le tout dans site web. En cliquant sur ce message on exploitera cette faille. Voyons ce qui se passe.
+\end{flushleft}
+
+\begin{center}
+\caption{XSS TYPE-1}
+\includegraphics[scale=0.3]{Web/assets/xsst1-1.png}
+\end{center}
+
+\bigskip
+
+\begin{flushleft}
+On voit clairement dans la liste des messages qu'un message à été posté par Hackademics. Soyons curieux et cliquons dessus pour voire ce qui se passe.
+\end{flushleft}
+
+\bigskip
+
+\begin{center}
+\caption{XSS TYPE-1}
+\includegraphics[scale=0.3]{Web/assets/xsst1-2.png}
+\end{center}
 
 \subsection{XSS réfléchi (Reflected)}\label{vulnerabilites:web:xss:reflected}
 
