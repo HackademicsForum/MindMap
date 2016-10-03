@@ -176,6 +176,23 @@ Quand on clique sur ce post on sera redirigé vers l’url qui a été entré pe
 
 \subsection{XSS réfléchi (Reflected)}\label{vulnerabilites:web:xss:reflected}
 
-...
+Le XSS REFLECHI (REFLECTED) est de loin la plus commune des failles XSS. Dans les attaques de TYPE-2 le code injecté doit faire partie de la requête qui est envoyée au serveur et renvoyée de telle sorte que la réponse HTTP inclut la charge utile de la demande HTTP. En utilisant des mails de phishing  et des techniques d'ingénierie sociale , le pirate incite la victime a faire une requête au serveur qui contient le payload XSS, cette requête permettra au code injecté d'être "réfléchi" et exécuté dans le navigateur.
+
+\begin{flushleft}
+Voici un exemple de l'exploitation de faille XSS de TYPE-2. Pour rester dans la légalité j'utilise GOOGLE-GRUYÈRE pour illustrer cette injection en utilisant l'URL suivante 
+\end{flushleft}
+
+\bigskip
+
+\begin{itemize}
+\item http://www.google-gruyere.appspot.com/381993578393/<script>alert("XSS TYPE-2")</script>
+\end{itemize}
+
+\begin{flushleft}
+Après avoir cliqué sur ce liens un popup avec le message suivant "XSS TYPE-2" s'affichera, mais on peut très bien s'imaginer un script beaucoup plus complexe...
+\end{flushleft} 
+
+\bigskip
+
 
 \endinput
