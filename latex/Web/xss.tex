@@ -194,5 +194,47 @@ Après avoir cliqué sur ce liens un popup avec le message suivant "XSS TYPE-2" 
 
 \bigskip
 
+\begin{center}
+\caption{XSS TYPE-1}
+\includegraphics[scale=0.3]{Web/assets/xsst2.png}
+\end{center}
+
+\bigskip
+
+\begin{flushleft}
+\textbf{Comment déterminer si vous êtes vulnérable}
+
+\smallskip
+
+Simplement en testant la vulnérabilité XSS en tentant d'injecter manuellement du code. On peut aussi penser à utiliser des outils dédies qui automatisent les tests d'intrusion comme par exemple:
+\end{flushleft}
+
+\bigskip
+
+\begin{itemize}
+\item OWASP XENOTIX
+\item XSSer
+\item W3af
+\end{itemize}
+
+\bigskip
+
+\begin{flushleft}
+\textbf{Contre-mesures}
+
+\smallskip
+
+Une bonne méthode de protection contre le XSS serait de combiner une validation de type "white-list" des données entrées et d'utiliser un codage approprié pour les données produites en sortie. Une validation qui permettra de détecter les attaques de type XSS, et un encodage destiné a empêcher l'injection de code malveillant. Pour plus de détails sur le XSS je vous propose la lecture de ces documents.
+\end{flushleft}
+
+\bigskip
+
+\begin{itemize}
+\item \url{https://hackademics.fr/forum/hacking-connaissances-avanc%C3%A9es/remote-web/failles/4487-faille-xss-chapitre-i}\\
+
+\item \url{https://hackademics.fr/forum/hacking-connaissances-avanc%C3%A9es/remote-web/failles/4499-faille-xss-chapitre-ii-dom-et-injection-html}\\
+
+\item \url{https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet}
+\end{itemize}
 
 \endinput
