@@ -171,16 +171,16 @@ Les contre-mesures sont les suivantes :
 \item D'autres protections plus génériques ou externes.
 \end{itemize}
 
-\subsection{Validation des entrées}\label{vulnerabilites:web:sqli:countermeasures:validation}
+\subsubsection{Validation des entrées}\label{vulnerabilites:web:sqli:countermeasures:validation}
 
 Il existe plusieurs façon de filtrer les entrées afin d'en limiter le contenu à ce qui est attendu.
-
 \begin{tabbing}
 \end{tabbing}
+
 Une (pas très bonne) méthode est de blacklister les caractères interdits, par exemple en supprimant les simples quotes et les double tirets. Ce filtrage est facilement contournable en encodant les caractères injectés. De plus il risque de poser des problèmes, un nom comme "Joseph d'Arimathie" devrait être valide.
-
 \begin{tabbing}
 \end{tabbing}
+
 Whitelister au moyen d'une regexp de toute façon plus sûr, au moins pour les valeurs numériques.
 
 Une méthode encore plus fiable est d'échapper (escape) les chaines de caractères, par exemple : 
@@ -193,7 +193,7 @@ Une méthode encore plus fiable est d'échapper (escape) les chaines de caractè
 
 + "'";
 
-\subsection{Requetes paramètrées}\label{vulnerabilites:web:sqli:countermeasures:parameterized}
+\subsubsection{Requetes paramètrées}\label{vulnerabilites:web:sqli:countermeasures:parameterized}
 
 Si le contexte le permet, il est encore plus fiable d'utiliser des requêtes paramètrées. Cette façon de construire des requêtes permet de s'affranchir ou de compléter le filtrage des entrées. Par exemple :
 \begin{tabbing}
@@ -208,6 +208,7 @@ ResultSet result = pstmt.executeQuery();
 
 \begin{tabbing}
 \end{tabbing}
+
 Cette technique peut cependant poser problème :
 \begin{tabbing}
 \end{tabbing}
@@ -217,12 +218,12 @@ Cette technique peut cependant poser problème :
 \item Si les entrée ne sont pas validées, elles peuvent poser problème lors de l'appel de procédures stockées, si celles-ci construisent à leur tour des requêtes par concaténation sans valider les variables. L'injection est alors déplacée dans la base de données elle-même !
 \end{itemize}
 
-\subsection{Autres contre-mesures}\label{vulnerabilites:web:sqli:countermeasures:others}
+\subsubsection{Autres contre-mesures}\label{vulnerabilites:web:sqli:countermeasures:others}
 
 Pour protéger une base de données contre les injections, on peut utiliser un pare-feu applicatif (WAF) ou un pare-feu SQL, qui vont bloquer les requêtes dangereuses, respectivement au niveau de l'application web ou du serveur SQL. Certains pare-feux SQL permettent également d'interdire certaines requêtes par plage horaire (pas de modification de données en dehors des plages de maintenance planifiée, par exemple).
-
 \begin{tabbing}
 \end{tabbing}
+
 Pour limiter les dégats en cas d'injection réussie, on peut également restreindre les droits de l'application sur la base de données :
 \begin{tabbing}
 \end{tabbing}
