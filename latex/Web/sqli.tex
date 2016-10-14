@@ -32,25 +32,96 @@ Les injections SQL se décomposent en deux grandes familles :
 SQL est un langage très puissant permettant beaucoup de choses. Ainsi, une injection SQL peut permettre des vols, ajouts, modifications, suppressions de données, mais aussi la prise de contrôle du serveur SQL afin d'y exécuter des commandes systèmes.
 
 
-\subsection{SQLi Simple}\label{vulnerabilites:web:sqli:simple}
+\subsection{SQLi Simple : Authentification}\label{vulnerabilites:web:sqli:simpleauthent}
 
 Une injection simple va permettre d'exécuter du code SQL et de récupérer les résultats.
 
 Par exemple, considérons la requete HTTP :
+\begin{tabbing}
+\end{tabbing}
 http://www.monsite.tld/login.php?login=toto\&password=tutu
 
+\begin{tabbing}
+\end{tabbing}
 Cette page PHP construit la requete :
-select ID from utilisateurs where login='\$login' AND password='\$password'
+\begin{tabbing}
+\end{tabbing}
+SELECT ID from utilisateurs where login='\$login' AND password='\$password'
 
+\begin{tabbing}
+\end{tabbing}
 Si les variables \$login et \$password ne sont pas vérifiées, on peut injecter ce que l'on veut dans la requete afin de contourner le controle d'accès :
-select ID from utilisateurs where login='xxx' or 1=1 -- ' AND password='yyy'
+\begin{tabbing}
+\end{tabbing}
+SELECT ID from utilisateurs where login='xxx' or 1=1 -- ' AND password='yyy'
 
+\begin{tabbing}
+\end{tabbing}
 Ici, la valeur envoyée pour \$login est :
 xxx' or 1=1 --
+
+\begin{tabbing}
+\end{tabbing}
 Le double tiret forçant tout ce qui suit dans la requete à être ignoré.
 
+Le but d'une injection SQL est donc de faire exécuter par la base de données du code SQL non prévu. Dans l'exemple précédent, en insérant dans un champ une simple quote (fin de chaine de caractères) suivie d'une condition "or 1=1" toujours vraie, on change le sens de la requête. Cette dernière conduira l'application à accepter notre tentative d'authentification frauduleuse.
 
-\subsection{SQLi à l'aveugle (Blind)}\label{vulnerabilites:web:sqli:blind}
+La fin de notre injection "--" permet d'éviter que la fin de la requête construite par l'application provoque une erreur lors de son exécution dans la base de données.
+
+\subsection{SQLi Simple : Extraction d'informations}\label{vulnerabilites:web:sqli:simpleextract}
+
+Un autre exemple classique est d'injecter une UNION afin de faire exécuter une requête complètement différente et d'en récupérer les résultats.
+
+Par exemple sur une page de boutique en ligne affichant une liste de produits :
+\begin{tabbing}
+\end{tabbing}
+
+http://www.monsite.tld/produits.php?type=4242
+
+\begin{tabbing}
+\end{tabbing}
+Qui construit la requête légitime : 
+\begin{tabbing}
+\end{tabbing}
+
+SELECT ID, Nom, Description, Prix FROM Produits WHERE Type = \$id
+
+\begin{tabbing}
+\end{tabbing}
+Peut être abusée avec :
+
+\begin{tabbing}
+\end{tabbing}
+http://www.monsite.tld/produits.php?type=4242 OR 1=0 UNION SELECT ID, Login, Password FROM users --
+(pour fonctionner, cette requête devra être URL-encodée)
+
+\begin{tabbing}
+\end{tabbing}
+La requête construite devient alors : 
+\begin{tabbing}
+\end{tabbing}
+
+SELECT ID, Nom, Description, Prix FROM Produits WHERE ID = 4242 OR 1=0 UNION SELECT ID, Login, Password, 0 FROM users --
+
+\begin{tabbing}
+\end{tabbing}
+Ici, il se passe deux choses :
+\begin{tabbing}
+\end{tabbing}
+\begin{itemize}
+\item "OR 1=0" fait en sorte que la 1ère requête avant l'UNION ne renverra pas de résultats dont le format risquerait de ne pas correspondre avec notre requête injectée.
+\item La requete injectée après l'UNION est totalement sous notre controle, la seule contrainte étant la façon dont la page PHP va afficher les résultats renvoyés. Ici les identifiants apparaitront à la place du nom des produits, et les mots de passe à la place des descriptions. On aurait pu aussi récupérer une troisième info dans le champ Prix.
+\end{itemize}
+
+\begin{tabbing}
+\end{tabbing}
+La page affichera donc les identifiants et mots de passe de tous les utilisateurs de la boutique, qui sont renvoyés par la base de données.
+
+\begin{tabbing}
+\end{tabbing}
+C'est une des raisons pour lesquelles ON NE STOCKE JAMAIS DE MOTS DE PASSE EN CLAIR dans une base de données.
+
+\subsection{SQLi à l'aveugle (Blind) : extraction d'informations}\label{vulnerabilites:web:sqli:blindleak}
 
 Lorsque les résultats des requêtes SQL ne sont pas directement affichés par l'application web, il va falloir travailler de manière détournée, en aveugle.
 
@@ -75,15 +146,21 @@ Connection: close
 
 \end{center}
 
+Ici, la requête injectée va forcer la base de données à exécuter une requête HTTP vers le serveur de l'attaquant. Cette requête va envoyer le nom du compte connecté à la base : ROBERT. L'attaquant n'aura qu'à récupérer le résultat sur sa console nc (ou dans les logs de son serveur HTTP).
+
+On aurait pu aussi extraire des données avec une requete semblable à l'exemple précédent.
+
+\subsection{SQLi à l'aveugle (Blind) : délai}\label{vulnerabilites:web:sqli:blindtime}
+
 Une autre technique très connue est celle par délai d'attente, par exemple pour déterminer la version de MySQL utilisée :
 
 \begin{center}
 http://www.monsite.tld/product.php?id=10 AND IF(version() like ‘5\%’, sleep(10), ‘false’))--
 \end{center}
 
-Ici, l'observation du temps de réponse de la requête indiquera si la cible utilise MySQL 5.X.
+Ici, l'injection consiste en un test du numéro de version de MySQL. Si ce numéro commence par 5, MySQL attendra 10 secondes avant de renvoyer son résultat à l'application. Ce délai est mesurable par l'attaquant. L'observation du temps de réponse de la requête HTTP indiquera donc si la cible utilise MySQL 5.X.
 
-\subsection{Contre-mesures}
+\subsection{Contre-mesures}\label{vulnerabilites:web:sqli:countermeasures}
 
 Les contre-mesures sont les suivantes :
 \begin{tabbing}
@@ -91,7 +168,68 @@ Les contre-mesures sont les suivantes :
 \begin{itemize}
 \item Valider strictement les entrées, par exemple si l'on attend qu'un type restreint de caractères, on peut filtrer la variable avec une regexp qui n'acceptera que les caractères attendus.
 \item Ne pas construire de requêtes SQL par concaténation, mais utiliser des requêtes paramètrées. Ainsi les variables passées en paramètres ne risquent de pas de changer le sens de la requête.
-\item Utiliser un pare-feu applicatif (WAF) ou un pare-feu SQL, qui vont bloquer les requêtes dangereuses, respectivement au niveau de l'application web ou du serveur SQL. Certains pare-feux SQL permettent également d'interdire certaines requêtes par plage horaire (pas de modification de données en dehors des plages de maintenance planifiée, par exemple).
+\item D'autres protections plus génériques ou externes.
+\end{itemize}
+
+\subsection{Validation des entrées}\label{vulnerabilites:web:sqli:countermeasures:validation}
+
+Il existe plusieurs façon de filtrer les entrées afin d'en limiter le contenu à ce qui est attendu.
+
+\begin{tabbing}
+\end{tabbing}
+Une (pas très bonne) méthode est de blacklister les caractères interdits, par exemple en supprimant les simples quotes et les double tirets. Ce filtrage est facilement contournable en encodant les caractères injectés. De plus il risque de poser des problèmes, un nom comme "Joseph d'Arimathie" devrait être valide.
+
+\begin{tabbing}
+\end{tabbing}
+Whitelister au moyen d'une regexp de toute façon plus sûr, au moins pour les valeurs numériques.
+
+Une méthode encore plus fiable est d'échapper (escape) les chaines de caractères, par exemple : 
+\begin{tabbing}
+\end{tabbing}
+
+\$query =  "SELECT ID, Nom, Description, Prix FROM Produits WHERE Categorie = '"
+
++ escape(patientName)
+
++ "'";
+
+\subsection{Requetes paramètrées}\label{vulnerabilites:web:sqli:countermeasures:parameterized}
+
+Si le contexte le permet, il est encore plus fiable d'utiliser des requêtes paramètrées. Cette façon de construire des requêtes permet de s'affranchir ou de compléter le filtrage des entrées. Par exemple :
+\begin{tabbing}
+\end{tabbing}
+String query = "SELECT ID, Nom, Description, Prix FROM Produits WHERE Categorie = ?";
+
+PreparedStatement pstmt = database.prepareStatement(query);
+
+pstmt.setString(1, categorie);
+
+ResultSet result = pstmt.executeQuery();
+
+\begin{tabbing}
+\end{tabbing}
+Cette technique peut cependant poser problème :
+\begin{tabbing}
+\end{tabbing}
+\begin{itemize}
+\item Certains moteurs de bases de données ont du mal à utiliser efficacement les index sur les requêtes paramétrées, ce qui peut poser des problèmes de performances.
+\item Le code applicatif est plus lourd, il est donc parfois difficile d'imposer cette discipline aux développeurs (oui, c'est toi, au dernier rang, que je regarde ! :D )
+\item Si les entrée ne sont pas validées, elles peuvent poser problème lors de l'appel de procédures stockées, si celles-ci construisent à leur tour des requêtes par concaténation sans valider les variables. L'injection est alors déplacée dans la base de données elle-même !
+\end{itemize}
+
+\subsection{Autres contre-mesures}\label{vulnerabilites:web:sqli:countermeasures:others}
+
+Pour protéger une base de données contre les injections, on peut utiliser un pare-feu applicatif (WAF) ou un pare-feu SQL, qui vont bloquer les requêtes dangereuses, respectivement au niveau de l'application web ou du serveur SQL. Certains pare-feux SQL permettent également d'interdire certaines requêtes par plage horaire (pas de modification de données en dehors des plages de maintenance planifiée, par exemple).
+
+\begin{tabbing}
+\end{tabbing}
+Pour limiter les dégats en cas d'injection réussie, on peut également restreindre les droits de l'application sur la base de données :
+\begin{tabbing}
+\end{tabbing}
+\begin{itemize}
+\item Créer un compte de connexion à la base réservé à l'aplication. Un autre compte sera utilisé pour les opérations d'administration (par exemple : chargement de la table Produits). En aucun il ne faut utiliser le compte "superuser" (mysql, postgres, SA, ...) dans l'application.
+\item Réduire les droits : l'application n'a les droits d'ajout/modif/suppression que sur les tables nécessaires (Paniers, Commandes, ...), seulement de lecture sur Produits et Categories, etc. Et EN AUCUN CAS le droit de créer, modifier ou supprimer des tables, procédures stockées ou autres objets. "GRANT" est votre ami.
+\item Séparer les fonctionnalités et implémenter des "security boundaries" : la table Clients, contenant des informations personnelles sur les utilisateurs ainsi que leurs identifiants et mots de passe, ne devrait être manipulée que par une (sous)application dédiée, accédant à la base de données avec son propre compte.
 \end{itemize}
 
 \endinput
